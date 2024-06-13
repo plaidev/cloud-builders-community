@@ -4,8 +4,8 @@ steps:
   id: build_base_image
   args: 
   - 'build'
-  - '--tag=gcr.io/$PROJECT_ID/cache:${_VERSION}'
-  - '--tag=gcr.io/$PROJECT_ID/cache:latest'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:${_VERSION}'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:latest'
   - '--file=Dockerfile-base'
   - '.'
 
@@ -13,22 +13,22 @@ steps:
   id: build_save_cache
   args: 
   - 'build'
-  - '--tag=gcr.io/$PROJECT_ID/save_cache:${_VERSION}'
-  - '--tag=gcr.io/$PROJECT_ID/save_cache:latest'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/save_cache:${_VERSION}'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/save_cache:latest'
   - '--file=Dockerfile-save'
   - '--build-arg=project_id=$PROJECT_ID'
-  - '--cache-from=gcr.io/$PROJECT_ID/cache:latest'
+  - '--cache-from=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:latest'
   - '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: build_restore_cache
   args: 
   - 'build'
-  - '--tag=gcr.io/$PROJECT_ID/restore_cache:${_VERSION}'
-  - '--tag=gcr.io/$PROJECT_ID/restore_cache:latest'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/restore_cache:${_VERSION}'
+  - '--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/restore_cache:latest'
   - '--file=Dockerfile-restore'
   - '--build-arg=project_id=$PROJECT_ID'
-  - '--cache-from=gcr.io/$PROJECT_ID/cache:latest'
+  - '--cache-from=asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:latest'
   - '.'
 
 # Test the script
@@ -128,10 +128,10 @@ substitutions:
   _VERSION: '1.2'
 
 images: 
-- 'gcr.io/$PROJECT_ID/cache:${_VERSION}'
-- 'gcr.io/$PROJECT_ID/cache:latest'
-- 'gcr.io/$PROJECT_ID/save_cache:${_VERSION}'
-- 'gcr.io/$PROJECT_ID/save_cache:latest'
-- 'gcr.io/$PROJECT_ID/restore_cache:${_VERSION}'
-- 'gcr.io/$PROJECT_ID/restore_cache:latest'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:${_VERSION}'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/cache:latest'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/save_cache:${_VERSION}'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/save_cache:latest'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/restore_cache:${_VERSION}'
+- 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/cloud-builders/restore_cache:latest'
 tags: ['cloud-builders-community']
